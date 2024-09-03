@@ -5,12 +5,11 @@ import com.yangjl.bigevent.entity.User;
 import com.yangjl.bigevent.service.UserService;
 import com.yangjl.bigevent.utils.JwtUtil;
 import com.yangjl.bigevent.utils.Md5Util;
+import com.yangjl.bigevent.utils.ThreadLocalUtil;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,11 +60,20 @@ public class UserController {
 
         Map<String, Object> claims = new HashMap<>(){{
             put("id", user.getId());
-            put("name", user.getUsername());
+            put("username", user.getUsername());
         }};
         String token = JwtUtil.genToken(claims);
         return Result.success(token);
 
     }
+
+    @GetMapping("/userInfo")
+    public Result<User> userInfo(@RequestHeader(name = "Authorization") String token) {
+        Map<String, Object> claims = ThreadLocalUtil.get();
+        String username = (String) claims.get("username");
+        User user = userService.findByUserName(username);
+        return Result.success(user);
+    }
+
 
 }
