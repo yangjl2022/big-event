@@ -20,4 +20,7 @@ public interface UserMapper {
 
     @Update("update user set head_picture = #{avatarUrl} where id = #{id}")
     void updateAvatar(Integer id, String avatarUrl);
+
+    @Update("update user set password = #{newPwd} where id = #{id}")
+    void updatePwd(Integer id, String newPwd);
 }

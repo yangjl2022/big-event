@@ -39,4 +39,9 @@ public class UserServiceImpl implements UserService {
         Integer id = (Integer) claims.get("id");
         userMapper.updateAvatar(id, avatarUrl);
     }
+
+    @Override
+    public void updatePwd(Integer id, String newPwd) {
+        userMapper.updatePwd(id, newPwd);
+    }
 }
