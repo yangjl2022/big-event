@@ -34,4 +34,14 @@ public class CategoryController {
     public Result<List<Category>> list() {
         return Result.success(categoryService.list());
     }
+
+    /**
+     * GET 查询指定 id 的文章分类
+     * @param id
+     * @return
+     */
+    @GetMapping("/detail")
+    public Result<Category> detail(Integer id) {
+        return Result.success(categoryService.findById(id));
+    }
 }
