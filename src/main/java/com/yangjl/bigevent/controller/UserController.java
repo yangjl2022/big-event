@@ -26,7 +26,7 @@ public class UserController {
     private UserService userService;
 
     /**
-     * 用户注册接口
+     * POST 用户注册接口
      * @param username 5~16位非空字符组成的用户名
      * @param password 5~16位非空字符组成的密码
      * @return
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     /**
-     * 登录接口
+     * POST 登录接口
      * @param username
      * @param password
      * @return token 令牌
@@ -90,7 +90,10 @@ public class UserController {
      */
     @PutMapping("/update")
     public Result update(@RequestBody @Validated User user) {
-        // 校验 user.name 防止更新其他用户信息
+        Map<String, Object> map = ThreadLocalUtil.get();
+        if(!map.get("username").equals(user.getUsername())) {
+            return Result.error("用户名不匹配");
+        }
         userService.update(user);
         return Result.success();
     }
