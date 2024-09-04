@@ -1,5 +1,6 @@
 package com.yangjl.bigevent.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
@@ -12,6 +13,8 @@ public class Category {
     private String categoryName;
     @NotEmpty
     private String categoryAlias;
+
+    @JsonIgnore
     private Integer createUserId;
     private LocalTime createTime;
     private LocalTime updateTime;
