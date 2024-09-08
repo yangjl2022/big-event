@@ -2,6 +2,7 @@ package com.yangjl.bigevent.controller;
 
 import com.yangjl.bigevent.entity.Article;
 import com.yangjl.bigevent.entity.Category;
+import com.yangjl.bigevent.entity.PageBean;
 import com.yangjl.bigevent.entity.Result;
 import com.yangjl.bigevent.service.ArticleService;
 import com.yangjl.bigevent.service.CategoryService;
@@ -31,5 +32,22 @@ public class ArticleController {
     public Result add(@RequestBody @Validated Article article) {
         articleService.add(article);
         return Result.success();
+    }
+
+    /**
+     * GET 根据条件查询文章,带分页
+     * @param pageNum
+     * @param pageSize
+     * @param categoryId
+     * @param state
+     * @return
+     */
+    @GetMapping
+    public Result<PageBean<Article>> list(Integer pageNum,
+                                          Integer pageSize,
+                                          @RequestParam(required = false) Integer categoryId,
+                                          @RequestParam(required = false) String state) {
+        PageBean<Article> pageBean = articleService.list(pageNum,pageSize,categoryId,state);
+        return Result.success(pageBean);
     }
 }
