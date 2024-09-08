@@ -44,4 +44,32 @@ public class CategoryController {
     public Result<Category> detail(Integer id) {
         return Result.success(categoryService.findById(id));
     }
+
+    /**
+     * PUT 更新文章分类
+     * @param category
+     *  id	主键ID
+     *  categoryName
+     *  categoryAlias
+     * @return
+     */
+    @PutMapping
+    public Result update(@RequestBody @Validated({Category.update.class}) Category category) {
+        categoryService.update(category);
+        return Result.success();
+    }
+
+    /**
+     * DELETE 根据ID删除文章分类
+     * @param id
+     * @return
+     */
+    @DeleteMapping
+    public Result delete(Integer id) {
+        int num = categoryService.delete(id);
+        if(num == 0) {
+            return Result.error("文章不存在或用户无权限");
+        }
+        return Result.success();
+    }
 }

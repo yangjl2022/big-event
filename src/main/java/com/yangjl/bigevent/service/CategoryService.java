@@ -24,4 +24,8 @@ public interface CategoryService {
      * @return
      */
     Category findById(Integer id);
+
+    void update(Category category);
+
+    int delete(Integer id);
 }

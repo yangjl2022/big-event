@@ -110,7 +110,7 @@ public class UserController {
     }
 
     /**
-     * PATCH 更新密码接口
+     * PATCH 更新用户密码
      * @param params old_pwd:原密码
      *               new_pwd:新密码
      * @return
