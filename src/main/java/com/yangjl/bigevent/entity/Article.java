@@ -1,5 +1,6 @@
 package com.yangjl.bigevent.entity;
 
+import com.yangjl.bigevent.annotation.State;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -24,8 +25,9 @@ public class Article {
     @URL
     private String coverImg;
 
-    @NotEmpty
-    @Pattern(regexp = "^(草稿|已发布)$")
+//    @NotEmpty
+//    @Pattern(regexp = "^(草稿|已发布)$")
+    @State
     private String state;
 
     @NotNull
