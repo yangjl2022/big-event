@@ -4,6 +4,7 @@ import com.yangjl.bigevent.entity.Article;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -17,4 +18,8 @@ public interface ArticleMapper {
 
     @Select("select * from article where id = #{id} and user_id = ${userId}")
     Article detail(Integer id, Integer userId);
+
+    @Update("update article set title = #{title}, content = #{content}, cover_img = #{coverImg}, state = #{state}," +
+            " category_id = #{categoryId} where id = #{id} and user_id = #{userId}")
+    int update(Article article);
 }

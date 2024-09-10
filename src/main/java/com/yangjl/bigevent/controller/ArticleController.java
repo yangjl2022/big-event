@@ -65,4 +65,18 @@ public class ArticleController {
         return Result.success(article);
     }
 
+    /**
+     * PUT 更新文章信息
+     * @param article
+     * @return
+     */
+    @PutMapping
+    public Result update(@RequestBody @Validated({Article.update.class}) Article article) {
+        int num = articleService.update(article);
+        if (num == 0) {
+            return Result.error("当前用户下不存在此文章");
+        }
+        return Result.success();
+    }
+
 }

@@ -6,6 +6,7 @@ import com.yangjl.bigevent.annotation.State;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.groups.Default;
 import lombok.Data;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.validation.annotation.Validated;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class Article {
+    @NotNull(groups = update.class)
     private Integer id;
 
     @NotEmpty
@@ -41,4 +43,7 @@ public class Article {
     private LocalDateTime createTime;
     @JsonFormat(pattern = "yy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
+
+    public interface update extends Default {
+    }
 }
