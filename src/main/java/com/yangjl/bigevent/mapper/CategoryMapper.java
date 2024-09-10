@@ -18,7 +18,7 @@ public interface CategoryMapper {
             " where create_user_id = #{id} limit 1000")
     List<Category> list(Integer id);
 
-    @Select("select id,category_name,category_alias,create_time,update_time from category where id = #{id}")
+    @Select("select * from category where id = #{id}")
     Category findById(Integer id);
 
     @Update("update category set category_name = #{categoryName},category_alias = #{categoryAlias}" +

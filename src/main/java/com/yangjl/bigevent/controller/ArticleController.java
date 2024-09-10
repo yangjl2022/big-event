@@ -7,10 +7,12 @@ import com.yangjl.bigevent.entity.Result;
 import com.yangjl.bigevent.service.ArticleService;
 import com.yangjl.bigevent.service.CategoryService;
 import com.yangjl.bigevent.utils.ThreadLocalUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/article")
 public class ArticleController {
@@ -18,6 +20,8 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
+    @Autowired
+    private CategoryService categoryService;
     /**
      * POST 新增文章(发布文章)
      * @param article:
@@ -30,6 +34,10 @@ public class ArticleController {
      */
     @PostMapping
     public Result add(@RequestBody @Validated Article article) {
+        Category category = categoryService.findById(article.getCategoryId());
+        if(category == null || !category.getCreateUserId().equals(ThreadLocalUtil.getId())) {
+            return Result.error("当前用户不存在此文章分类");
+        }
         articleService.add(article);
         return Result.success();
     }

@@ -39,9 +39,9 @@ public class Article {
 
     @JsonIgnore
     private Integer userId;
-    @JsonFormat(pattern = "yy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
-    @JsonFormat(pattern = "yy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
     public interface update extends Default {
