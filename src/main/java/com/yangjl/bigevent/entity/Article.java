@@ -1,6 +1,7 @@
 package com.yangjl.bigevent.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yangjl.bigevent.annotation.State;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -34,6 +35,7 @@ public class Article {
     @NotNull
     private Integer categoryId;
 
+    @JsonIgnore
     private Integer userId;
     @JsonFormat(pattern = "yy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;

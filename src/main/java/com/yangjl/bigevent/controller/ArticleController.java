@@ -50,4 +50,19 @@ public class ArticleController {
         PageBean<Article> pageBean = articleService.list(pageNum,pageSize,categoryId,state);
         return Result.success(pageBean);
     }
+
+    /**
+     * GET 根据ID获取文章详细信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/detail")
+    public Result<Article> detail(Integer id) {
+        Article article = articleService.detail(id);
+        if (article == null) {
+            return Result.error("当前用户下不存在此文章");
+        }
+        return Result.success(article);
+    }
+
 }

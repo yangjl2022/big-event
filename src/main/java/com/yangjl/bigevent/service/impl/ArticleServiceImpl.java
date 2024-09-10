@@ -37,4 +37,9 @@ public class ArticleServiceImpl implements ArticleService {
         pageBean.setItems(pages.getResult());
         return pageBean;
     }
+
+    @Override
+    public Article detail(Integer id) {
+        return articleMapper.detail(id, ThreadLocalUtil.getId());
+    }
 }
