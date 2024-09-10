@@ -79,4 +79,19 @@ public class ArticleController {
         return Result.success();
     }
 
+
+    /**
+     * DELETE 根据ID删除文章
+     * @param id
+     * @return
+     */
+    @DeleteMapping
+    public Result delete(Integer id) {
+        int num = articleService.delete(id);
+        if (num == 0) {
+            return Result.error("当前用户下不存在此文章");
+        }
+        return Result.success();
+    }
+
 }

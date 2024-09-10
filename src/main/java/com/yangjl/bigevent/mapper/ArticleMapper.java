@@ -1,10 +1,7 @@
 package com.yangjl.bigevent.mapper;
 
 import com.yangjl.bigevent.entity.Article;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -22,4 +19,7 @@ public interface ArticleMapper {
     @Update("update article set title = #{title}, content = #{content}, cover_img = #{coverImg}, state = #{state}," +
             " category_id = #{categoryId} where id = #{id} and user_id = #{userId}")
     int update(Article article);
+
+    @Delete("delete from article where id = #{id} and user_id = ${userId}")
+    int delete(Integer id, Integer userId);
 }

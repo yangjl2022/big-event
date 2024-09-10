@@ -48,4 +48,9 @@ public class ArticleServiceImpl implements ArticleService {
         article.setUserId(ThreadLocalUtil.getId());
         return articleMapper.update(article);
     }
+
+    @Override
+    public int delete(Integer id) {
+        return articleMapper.delete(id, ThreadLocalUtil.getId());
+    }
 }
