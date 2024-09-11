@@ -8,4 +8,7 @@ spring:
     password: 1234
 mybatis:
   configuration:
-    map-underscore-to-camel-case: true # ?????????????????
+    map-underscore-to-camel-case: true
+
+file:
+  upload-dir: D:\data\
