@@ -3,12 +3,18 @@ spring:
     name: big-event
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/bigevent
-    username: root
-    password: 1234
+    url: ${spring.datasource.url}
+    username: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+
+
 mybatis:
   configuration:
-    map-underscore-to-camel-case: true
+    map-underscore-to-camel-case: true # 数据库下划线命名法自动对应java驼峰命名法
 
-file:
-  upload-dir: D:\data\
+
+AliOssUtil:
+  endpoint: ${AliOssUtil.endpoint}
+  access-key-id: ${AliOssUtil.access-key-id}
+  secret-access-key: ${AliOssUtil.access-key-id}
+  bucket-name: ${AliOssUtil.bucket-name} # 阿里云存对象的相关配置
