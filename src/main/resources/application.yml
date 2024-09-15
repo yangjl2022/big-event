@@ -6,6 +6,10 @@ spring:
     url: ${spring.datasource.url}
     username: ${spring.datasource.username}
     password: ${spring.datasource.password}
+  data:
+    redis:
+      host: ${spring.data.redis.host}
+      port: 6379
 
 
 mybatis:

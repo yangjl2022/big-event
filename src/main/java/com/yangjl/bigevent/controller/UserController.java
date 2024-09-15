@@ -9,6 +9,7 @@ import com.yangjl.bigevent.utils.ThreadLocalUtil;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/user")
@@ -24,6 +26,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    StringRedisTemplate redisTemplate;
 
     /**
      * POST 用户注册接口
@@ -66,6 +71,7 @@ public class UserController {
             put("username", user.getUsername());
         }};
         String token = JwtUtil.genToken(claims);
+        redisTemplate.opsForValue().set("token_"+user.getId(), token, 1, TimeUnit.DAYS);
         return Result.success(token);
 
     }
@@ -138,6 +144,9 @@ public class UserController {
         if(!user.getPassword().equals(Md5Util.getMD5String(oldPwd))) {
             return Result.error("原密码错误");
         }
+
+        // 删除 redis 中原来的 token
+        redisTemplate.delete("token_"+user.getId());
 
         // 修改密码
         userService.updatePwd(user.getId(), Md5Util.getMD5String(newPwd));

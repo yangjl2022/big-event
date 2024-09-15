@@ -19,7 +19,8 @@ public class AliOssUtil {
     private static String SECRET_ACCESS_KEY;
     private static String BUCKET_NAME;
 
-    private Environment environment;
+    private final Environment environment;
+
     public AliOssUtil(Environment environment) {
         this.environment = environment;
     }
