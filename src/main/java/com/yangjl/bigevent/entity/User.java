@@ -20,5 +20,5 @@ public class User {
     @NotEmpty
     @Email
     private String email;
-    private String head_picture;
+    private String userPic;
 }
