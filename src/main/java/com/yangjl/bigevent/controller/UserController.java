@@ -7,6 +7,7 @@ import com.yangjl.bigevent.utils.JwtUtil;
 import com.yangjl.bigevent.utils.Md5Util;
 import com.yangjl.bigevent.utils.ThreadLocalUtil;
 import jakarta.validation.constraints.Pattern;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @RestController
 @RequestMapping("/user")
 @Validated
@@ -44,6 +46,7 @@ public class UserController {
             return Result.error("用户名已被占用");
         }
         userService.register(username, password);
+        log.info("用户 {} 注册成功", username);
         return Result.success();
     }
 
@@ -72,6 +75,7 @@ public class UserController {
         }};
         String token = JwtUtil.genToken(claims);
         redisTemplate.opsForValue().set("token_"+user.getId(), token, 1, TimeUnit.DAYS);
+        log.info("用户 {} 登录成功", username);
         return Result.success(token);
 
     }
@@ -86,6 +90,7 @@ public class UserController {
         Map<String, Object> claims = ThreadLocalUtil.get();
         String username = (String) claims.get("username");
         User user = userService.findByUserName(username);
+        log.info("用户: {}", user);
         return Result.success(user);
     }
 
@@ -101,6 +106,7 @@ public class UserController {
             return Result.error("用户名不匹配");
         }
         userService.update(user);
+        log.info("更新用户：{}", user);
         return Result.success();
     }
 
@@ -112,6 +118,7 @@ public class UserController {
     @PatchMapping("/updateAvatar")
     public Result updateAvatar(@URL String avatarUrl) {
         userService.updateAvatar(avatarUrl);
+        log.info("更新用户头像：{}", avatarUrl);
         return Result.success();
     }
 
@@ -150,6 +157,7 @@ public class UserController {
 
         // 修改密码
         userService.updatePwd(user.getId(), Md5Util.getMD5String(newPwd));
+        log.info("用户 {} 的密码修改成功", map.get("username"));
         return Result.success();
     }
 }

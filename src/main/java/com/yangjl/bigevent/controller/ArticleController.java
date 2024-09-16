@@ -39,6 +39,7 @@ public class ArticleController {
             return Result.error("当前用户不存在此文章分类");
         }
         articleService.add(article);
+        log.info("成功添加文章：{}", article);
         return Result.success();
     }
 
@@ -56,6 +57,7 @@ public class ArticleController {
                                           @RequestParam(required = false) Integer categoryId,
                                           @RequestParam(required = false) String state) {
         PageBean<Article> pageBean = articleService.list(pageNum,pageSize,categoryId,state);
+        log.info("分页查询结果: {}",pageBean);
         return Result.success(pageBean);
     }
 
@@ -70,6 +72,7 @@ public class ArticleController {
         if (article == null) {
             return Result.error("当前用户下不存在此文章");
         }
+        log.info("文章查询结果: {}", article);
         return Result.success(article);
     }
 
@@ -84,6 +87,7 @@ public class ArticleController {
         if (num == 0) {
             return Result.error("当前用户下不存在此文章");
         }
+        log.info("文章更新结果: {}", article);
         return Result.success();
     }
 
@@ -99,6 +103,7 @@ public class ArticleController {
         if (num == 0) {
             return Result.error("当前用户下不存在此文章");
         }
+        log.info("删除文章: {}", id);
         return Result.success();
     }
 

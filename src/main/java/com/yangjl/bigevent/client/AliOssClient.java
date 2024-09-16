@@ -58,7 +58,6 @@ public class AliOssClient {
             oss.createBucket(bucketName);
             oss.putObject(bucketName, objectName, inputStream);
             url = generatePresignedUrl(objectName, 12);
-            log.info("文件 {} 上传成功：{}", objectName, url);
         } catch (OSSException oe) {
             log.info("Caught an OSSException, which means your request made it to OSS, "
                     + "but was rejected with an error response for some reason.");

@@ -3,12 +3,15 @@ package com.yangjl.bigevent.controller;
 import com.yangjl.bigevent.entity.Category;
 import com.yangjl.bigevent.entity.Result;
 import com.yangjl.bigevent.service.CategoryService;
+import com.yangjl.bigevent.utils.ThreadLocalUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
@@ -23,6 +26,7 @@ public class CategoryController {
     @PostMapping
     public Result add(@RequestBody @Validated Category category) {
         categoryService.add(category);
+        log.info("新增文章分类: {}", category);
         return Result.success();
     }
 
@@ -32,7 +36,9 @@ public class CategoryController {
      */
     @GetMapping
     public Result<List<Category>> list() {
-        return Result.success(categoryService.list());
+        List<Category> list = categoryService.list();
+        log.info("用户 {} 的所有的文章分类: {}", ThreadLocalUtil.getId(), list);
+        return Result.success(list);
     }
 
     /**
@@ -42,7 +48,9 @@ public class CategoryController {
      */
     @GetMapping("/detail")
     public Result<Category> detail(Integer id) {
-        return Result.success(categoryService.findById(id));
+        Category category = categoryService.findById(id);
+        log.info("查询到的文章分类: {}", category);
+        return Result.success(category);
     }
 
     /**
@@ -56,6 +64,7 @@ public class CategoryController {
     @PutMapping
     public Result update(@RequestBody @Validated({Category.update.class}) Category category) {
         categoryService.update(category);
+        log.info("更新文章分类: {}", category);
         return Result.success();
     }
 
@@ -70,6 +79,7 @@ public class CategoryController {
         if(num == 0) {
             return Result.error("文章不存在或用户无权限");
         }
+        log.info("删除文章分类: {}", id);
         return Result.success();
     }
 }
