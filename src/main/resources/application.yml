@@ -17,8 +17,8 @@ mybatis:
     map-underscore-to-camel-case: true # 数据库下划线命名法自动对应java驼峰命名法
 
 
-AliOssUtil:
-  endpoint: ${AliOssUtil.endpoint}
-  access-key-id: ${AliOssUtil.access-key-id}
-  secret-access-key: ${AliOssUtil.access-key-id}
-  bucket-name: ${AliOssUtil.bucket-name} # 阿里云存对象的相关配置
+oss:
+  endpoint: ${oss.endpoint}
+  access-key-id: ${oss.access-key-id}
+  access-key-secret: ${oss.access-key-secret}
+  bucket-name: ${oss.bucket-name} # 阿里云存对象的相关配置
